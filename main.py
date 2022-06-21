@@ -2,7 +2,7 @@ from random import randint
 from time import sleep
 import threading
 import pygame
-timer = 1
+timer = 0
 class Player():
     def __init__(self,x,y,width,height,speed) -> None:
         self.Rect = pygame.rect.Rect(x,y,width,height)
