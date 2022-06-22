@@ -2,7 +2,9 @@ from random import randint
 from time import sleep
 import threading
 import pygame
-timer = 1
+timer = 0
+seconds = 0
+minutes = 0
 class Player():
     def __init__(self,x,y,width,height,speed) -> None:
         self.Rect = pygame.rect.Rect(x,y,width,height)
@@ -189,10 +191,14 @@ class Ball():
     def draw(self):
         pygame.draw.circle(display,(0,255,0),self.Rect.center,self.radius)
 def timer_run():
-    global timer
+    global timer,seconds,minutes
     while pygame.get_init():
         sleep(1)
+        seconds += 1
         timer += 1
+        if seconds == 59:
+            minutes += 1
+            seconds = 0
 
 def run_game():
     global display,player1,player2,ball,player1_score,player2_score
@@ -229,7 +235,10 @@ def run_game():
         player2.move()
         player1.draw()
         player2.draw()
-        display.blit(timer_text.render(f"Timer: {timer}",True,(255,255,255)),(310,30))
+        if seconds < 10:
+            display.blit(timer_text.render(f"Timer: {minutes}:0{seconds}",True,(255,255,255)),(310,30))
+        else:
+            display.blit(timer_text.render(f"Timer: {minutes}:{seconds}",True,(255,255,255)),(310,30))
         display.blit(player1_score_text.render(str(player1_score),True,(0,255,0)),(330,60))
         display.blit(player2_score_text.render(str(player2_score),True,(255,0,0)),(370,60))
         pygame.display.flip()
