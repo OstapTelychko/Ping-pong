@@ -5,7 +5,6 @@ import pygame
 timer = 0
 seconds = 0
 minutes = 0
-#Player
 class Player():
     def __init__(self,x,y,width,height,speed) -> None:
         self.Rect = pygame.rect.Rect(x,y,width,height)
